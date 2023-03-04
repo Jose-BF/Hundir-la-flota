@@ -1,3 +1,6 @@
+
+//Codigo hecho por Jose Blanco Fleury ©
+
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
@@ -60,12 +63,7 @@ bool disparo(int tablero[6][6], int disparos[6][6]){
         cout<<"\t\tAgua"<<endl;
         tablero[fila][columna]=8;
     }
-        
-    
-
-    
-    
-
+     
     //comprobamos si despues del disparo quedan barcos
     int contadortocado=0;
     for(int i=0;i<6;i++){
@@ -77,8 +75,6 @@ bool disparo(int tablero[6][6], int disparos[6][6]){
                 contadortocado++;
                 
             }
-            
-            
         }
     }
     
@@ -87,14 +83,9 @@ bool disparo(int tablero[6][6], int disparos[6][6]){
         quedanBarcos=false;
     }
 
-
     //mostramos el tablero de disparos
     mostrarTablero(tablero);
-
-
-
     return quedanBarcos;
-
 
 }
 
@@ -120,9 +111,6 @@ int main(){
             disparos[i][j]= 0;
         }
     }
-
-    
-
 
     do{
         //Inicializamos el tablero a 0
