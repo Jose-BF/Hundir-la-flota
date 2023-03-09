@@ -45,25 +45,50 @@ bool disparo(char tablero[6][6]){
     bool quedanBarcos = false;
     
     int fila, columna;
-    cout << "Introduce la fila: ";
-    cin >> fila;
-    cout << "Introduce la columna: ";
-    cin >> columna;
+    char entrada_fila, entrada_columna;
 
+    // Solicitamos la fila y verificamos que sea un número entre 0 y 5
+    do {
+        cout << "Introduce la fila: ";
+        cin >> entrada_fila;
+        if (isdigit(entrada_fila)) {
+            fila = entrada_fila - '0';
+            if (fila < 0 || fila > 5) {
+                cout << "Debe introducir un numero del 0 al 5." << endl;
+            }
+
+        } else {
+            cout << "Debe introducir un numero del 0 al 5." << endl;
+        }
+    } while (fila < 0 || fila > 5);
+
+    // Solicitamos la columna y verificamos que sea un número entre 0 y 5
+    do {
+        cout << "Introduce la columna: ";
+        cin >> entrada_columna;
+        if (isdigit(entrada_columna)) {
+            columna = entrada_columna - '0';
+            if (columna < 0 || columna > 5) {
+                cout << "Debe introducir un numero del 0 al 5." << endl;
+            }
+
+        } else {
+            cout << "Debe introducir un numero del 0 al 5." << endl;
+        }
+    } while (columna < 0 || columna > 5);
+
+    // Comprobamos si la posición seleccionada es un barco, agua o una posición ya atacada
     if(tablero[fila][columna]=='^'){
         tablero[fila][columna]='#';
-        cout << "\t\tTocado" << endl;
-       
-    }
-    else if(tablero[fila][columna]=='#'){
-        cout << "\t\tYa habias Acertado" << endl;
-    }
-    if (tablero[fila][columna]=='~'){
-        cout<<"\t\tAgua"<<endl;
+        cout << "\t\t///Tocado///" << endl;
+    } else if(tablero[fila][columna]=='#'){
+        cout << "\t\t///Ya habias Acertado///" << endl;
+    } else if (tablero[fila][columna]=='~'){
+        cout<<"\t\t///Agua///"<<endl;
         tablero[fila][columna]='+';
     }
      
-    //comprobamos si despues del disparo quedan barcos
+    // Comprobamos si quedan barcos en el tablero
     int contadortocado=0;
     for(int i=0;i<6;i++){
         for(int j=0;j<6;j++){
@@ -72,23 +97,65 @@ bool disparo(char tablero[6][6]){
             }
             if (tablero[i][j]=='#'){
                 contadortocado++;
-                
             }
         }
     }
     
     if (contadortocado==7){
-        cout<<"\nHas ganado"<<endl;
+        cout<<"\n///Has ganado///"<<endl;
         quedanBarcos=false;
     }
 
-    //mostramos el tablero de disparos
+    // Mostramos el tablero de disparos
     mostrarTablero(tablero);
-    return quedanBarcos;
 
+    return quedanBarcos;
 }
 
+
 int main(){
+cout<<endl;
+cout<<"                                    ____       __      ___           __         _  _         _____    __         ______   ________  _____"<<endl;
+cout<<"     //    / / //   / / /|    / / //    ) )   / /    //   ) )       / /        // | |       //   / / / /        //   ) ) /__  ___/ // | |"<<endl;
+cout<<"    //___ / / //   / / //|   / / //    / /   / /    //___/ /       / /        //__| |      //___    / /        //   / /    / /    //__| |"<<endl;
+cout<<"   / ___   / //   / / // |  / / //    / /   / /    / ___ (        / /        / ___  |     / ___    / /        //   / /    / /    / ___  |"<<endl;
+cout<<"  //    / / //   / / //  | / / //    / /   / /    //   | |       / /        //    | |    //       / /        //   / /    / /    //    | |"<<endl;
+cout<<" //    / / ((___/ / //   |/ / //____/ / __/ /___ //    | |      / /____/ / //     | |   //       / /____/ / ((___/ /    / /    //     | |"<<endl;
+
+
+
+    //Preguntar por empezar el juego
+    char respuesta;
+    cout<<"\n \nBienvenido al juego de hundir la flota"<<endl;
+    cout<<"--------------------------------------"<<endl;
+    cout<<"-Debe de hundir todos los barcos para finalizar el juego"<<endl;
+    cout<<"-Los barcos estan representados por este caracter ( ^ )"<<endl;
+    cout<<"-Un disparo al agua se representa con este caracter ( + )"<<endl;
+    cout<<"-Un disparo al barco se representa con este caracter ( # )"<<endl;
+    cout<<"-Apareceran 3 barcos aleatoriamente entre 1x2, 2x1, 1x3 y 3x1"<<endl;
+    cout<<"-El tablero es de 6x6"<<endl;
+    cout<<"-Para disparar debe de introducir la fila y la columna"<<endl;
+    cout<<"-En caso de introducir una instroduccion incorrecta, el juego finalizara"<<endl;
+    cout<<"------------------------------------------------------------------------ \n"<<endl;
+
+    char siono;
+    while (true) {
+    cout << "Quieres empezar el juego? (s/n):\n\n ";
+    cout<<">> ";
+    cin >> siono;
+    if (siono == 'n' || siono == 'N') {
+    cout << "Hasta la próxima" << endl;
+    return 0;
+    } else if (siono == 's' || siono == 'S') {
+    cout << "\nComenzando..." << endl;
+    break;
+    } else {
+    cout << "Respuesta incorrecta" << endl;
+    }
+    }
+    cout<<endl<<endl;
+
+
 
     srand(time(NULL));
 
@@ -121,7 +188,7 @@ int main(){
     int columnaBarco1x2_2;
 
     //Randomificamos las variables
-    filaBarco3x1 = rand()%6;
+    filaBarco3x1 = rand()%5;
     columnaBarco3x1 = rand()%4;
 
     filaBarco1x3 = rand()%4;
@@ -195,7 +262,7 @@ int main(){
             crearBarco12(tablero, filaBarco1x2_2, columnaBarco1x2_2);
         }
 
-        //Comprobamos si hay 7 1s en el tablero
+        //Comprobamos si hay 7 ^s en el tablero, en caso contrario, hay solapamiento y se vuelven a generar los barcos
         int contador = 0;
         for(int i=0;i<6;i++){
             for(int j=0;j<6;j++){
@@ -204,8 +271,6 @@ int main(){
                 }
             }
         }
-
-        //si hay 7 1s en el tablero, no hay solapamiento
         if(contador == 7){
             Solapan = false;
         }else{
@@ -214,40 +279,9 @@ int main(){
 
     }while(Solapan == true);
     
-    //mostramos todas las posiciones de los barcos
-
-    // cout<<"Si el barco de 3 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio3x1_1x3<<endl; 
-
     
-    // cout<<"Si el barco de 3 es horizontal, la fila es: "<<filaBarco3x1<<endl;
-    // cout<<"Si el barco de 3 es horizontal, la columna es: "<<columnaBarco3x1<<endl;
-
-    // cout<<"Si el barco de 3 es vertical, la fila es: "<<filaBarco1x3<<endl;
-    // cout<<"Si el barco de 3 es vertical, la columna es: "<<columnaBarco1x3<<endl;
-
-
-    
-    // cout<<"Si el primer barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio2x1_1x2<<endl;
-    
-    // cout<<"Si el primer barco de 2 es horizontal, la fila es: "<<filaBarco2x1_1<<endl;
-    // cout<<"Si el primer barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_1<<endl;
-
-    // cout<<"Si el primer barco de 2 es vertical, la fila es: "<<filaBarco1x2_1<<endl;
-    // cout<<"Si el primer barco de 2 es vertical, la columna es: "<<columnaBarco1x2_1<<endl;
-
-
-
-    // cout<<"Si el segundo barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio1x2_2x1<<endl;
-
-    // cout<<"Si el segundo barco de 2 es horizontal, la fila es: "<<filaBarco2x1_2<<endl;
-    // cout<<"Si el segundo barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_2<<endl;
-
-    // cout<<"Si el segundo barco de 2 es vertical, la fila es: "<<filaBarco1x2_2<<endl;
-    // cout<<"Si el segundo barco de 2 es vertical, la columna es: "<<columnaBarco1x2_2<<endl;
-
-
     //Mostramos el tablero
-    cout << "Mostar tablero con barcos" << endl;
+    cout<<"TABLERO DE JUEGO"<<endl;
     mostrarTablero(tablero);
 
     //Empezamos a disparar
@@ -257,37 +291,37 @@ int main(){
 
     //Comprobamos los barcos hundidos
     if (Aleatorio3x1_1x3 == 0){
-            if (tablero[filaBarco3x1][columnaBarco3x1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+2] == '#'){
+        if (tablero[filaBarco3x1][columnaBarco3x1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+2] == '#'){
                 cout<<"El barco de 3x1 esta hundido"<<endl;
-            }
         }
-        if (Aleatorio3x1_1x3 == 1){
-            if (tablero[filaBarco1x3][columnaBarco1x3] == '#' && tablero[filaBarco1x3+1][columnaBarco1x3] == '#' && tablero[filaBarco1x3+2][columnaBarco1x3] == '#'){
+    }
+    if (Aleatorio3x1_1x3 == 1){
+        if (tablero[filaBarco1x3][columnaBarco1x3] == '#' && tablero[filaBarco1x3+1][columnaBarco1x3] == '#' && tablero[filaBarco1x3+2][columnaBarco1x3] == '#'){
                 cout<<"El barco de 1x3 esta hundido"<<endl;
-            }
         }
+    }
 
-        if (Aleatorio2x1_1x2 == 0){
-            if (tablero[filaBarco2x1_1][columnaBarco2x1_1] == '#' && tablero[filaBarco2x1_1][columnaBarco2x1_1+1] == '#'){
+    if (Aleatorio2x1_1x2 == 0){
+        if (tablero[filaBarco2x1_1][columnaBarco2x1_1] == '#' && tablero[filaBarco2x1_1][columnaBarco2x1_1+1] == '#'){
                 cout<<"El primer barco de 2x1 esta hundido"<<endl;
-            }
         }
-        if (Aleatorio2x1_1x2 == 1){
-            if (tablero[filaBarco1x2_1][columnaBarco1x2_1] == '#' && tablero[filaBarco1x2_1+1][columnaBarco1x2_1] == '#'){
+    }
+    if (Aleatorio2x1_1x2 == 1){
+        if (tablero[filaBarco1x2_1][columnaBarco1x2_1] == '#' && tablero[filaBarco1x2_1+1][columnaBarco1x2_1] == '#'){
                 cout<<"El primer barco de 1x2 esta hundido"<<endl;
-            }
         }
+    }
 
-        if (Aleatorio1x2_2x1 == 0){
-            if (tablero[filaBarco2x1_2][columnaBarco2x1_2] == '#' && tablero[filaBarco2x1_2][columnaBarco2x1_2+1] == '#'){
+    if (Aleatorio1x2_2x1 == 0){
+        if (tablero[filaBarco2x1_2][columnaBarco2x1_2] == '#' && tablero[filaBarco2x1_2][columnaBarco2x1_2+1] == '#'){
                 cout<<"El segundo barco de 2x1 esta hundido"<<endl;
-            }
         }
-        if (Aleatorio1x2_2x1 == 1){
-            if (tablero[filaBarco1x2_2][columnaBarco1x2_2] == '#' && tablero[filaBarco1x2_2+1][columnaBarco1x2_2] == '#'){
+    }
+    if (Aleatorio1x2_2x1 == 1){
+        if (tablero[filaBarco1x2_2][columnaBarco1x2_2] == '#' && tablero[filaBarco1x2_2+1][columnaBarco1x2_2] == '#'){
                 cout<<"El segundo barco de 1x2 esta hundido"<<endl;
-            }
         }
+    }
 
     }
 
