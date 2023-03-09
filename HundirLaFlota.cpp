@@ -79,7 +79,7 @@ bool disparo(int tablero[6][6]){
     }
     
     if (contadortocado==7){
-        cout<<"Has ganado"<<endl;
+        cout<<"\nHas ganado"<<endl;
         quedanBarcos=false;
     }
 
@@ -217,35 +217,34 @@ int main(){
     
     //mostramos todas las posiciones de los barcos
 
-    cout<<"Si el barco de 3 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio3x1_1x3<<endl; 
+    // cout<<"Si el barco de 3 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio3x1_1x3<<endl; 
 
     
-    cout<<"Si el barco de 3 es horizontal, la fila es: "<<filaBarco3x1<<endl;
-    cout<<"Si el barco de 3 es horizontal, la columna es: "<<columnaBarco3x1<<endl;
+    // cout<<"Si el barco de 3 es horizontal, la fila es: "<<filaBarco3x1<<endl;
+    // cout<<"Si el barco de 3 es horizontal, la columna es: "<<columnaBarco3x1<<endl;
 
-    cout<<"Si el barco de 3 es vertical, la fila es: "<<filaBarco1x3<<endl;
-    cout<<"Si el barco de 3 es vertical, la columna es: "<<columnaBarco1x3<<endl;
+    // cout<<"Si el barco de 3 es vertical, la fila es: "<<filaBarco1x3<<endl;
+    // cout<<"Si el barco de 3 es vertical, la columna es: "<<columnaBarco1x3<<endl;
 
 
     
-    cout<<"Si el primer barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio2x1_1x2<<endl;
+    // cout<<"Si el primer barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio2x1_1x2<<endl;
     
-    cout<<"Si el primer barco de 2 es horizontal, la fila es: "<<filaBarco2x1_1<<endl;
-    cout<<"Si el primer barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_1<<endl;
+    // cout<<"Si el primer barco de 2 es horizontal, la fila es: "<<filaBarco2x1_1<<endl;
+    // cout<<"Si el primer barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_1<<endl;
 
-    cout<<"Si el primer barco de 2 es vertical, la fila es: "<<filaBarco1x2_1<<endl;
-    cout<<"Si el primer barco de 2 es vertical, la columna es: "<<columnaBarco1x2_1<<endl;
+    // cout<<"Si el primer barco de 2 es vertical, la fila es: "<<filaBarco1x2_1<<endl;
+    // cout<<"Si el primer barco de 2 es vertical, la columna es: "<<columnaBarco1x2_1<<endl;
 
 
 
-    cout<<"Si el segundo barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio1x2_2x1<<endl;
+    // cout<<"Si el segundo barco es de 2 es horizontal/vertical (0 horizontal, 1 vertical): "<<Aleatorio1x2_2x1<<endl;
 
-    cout<<"Si el segundo barco de 2 es horizontal, la fila es: "<<filaBarco2x1_2<<endl;
-    cout<<"Si el segundo barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_2<<endl;
+    // cout<<"Si el segundo barco de 2 es horizontal, la fila es: "<<filaBarco2x1_2<<endl;
+    // cout<<"Si el segundo barco de 2 es horizontal, la columna es: "<<columnaBarco2x1_2<<endl;
 
-    cout<<"Si el segundo barco de 2 es vertical, la fila es: "<<filaBarco1x2_2<<endl;
-    cout<<"Si el segundo barco de 2 es vertical, la columna es: "<<columnaBarco1x2_2<<endl;
-
+    // cout<<"Si el segundo barco de 2 es vertical, la fila es: "<<filaBarco1x2_2<<endl;
+    // cout<<"Si el segundo barco de 2 es vertical, la columna es: "<<columnaBarco1x2_2<<endl;
 
 
     //Mostramos el tablero
@@ -256,6 +255,41 @@ int main(){
         
     while(disparo(tablero) == true){
     disparo(tablero);
+
+    //Comprobamos los barcos hundidos
+    if (Aleatorio3x1_1x3 == 0){
+            if (tablero[filaBarco3x1][columnaBarco3x1] == 2 && tablero[filaBarco3x1][columnaBarco3x1+1] == 2 && tablero[filaBarco3x1][columnaBarco3x1+2] == 2){
+                cout<<"El barco de 3x1 esta hundido"<<endl;
+            }
+        }
+        if (Aleatorio3x1_1x3 == 1){
+            if (tablero[filaBarco1x3][columnaBarco1x3] == 2 && tablero[filaBarco1x3+1][columnaBarco1x3] == 2 && tablero[filaBarco1x3+2][columnaBarco1x3] == 2){
+                cout<<"El barco de 1x3 esta hundido"<<endl;
+            }
+        }
+
+        if (Aleatorio2x1_1x2 == 0){
+            if (tablero[filaBarco2x1_1][columnaBarco2x1_1] == 2 && tablero[filaBarco2x1_1][columnaBarco2x1_1+1] == 2){
+                cout<<"El primer barco de 2x1 esta hundido"<<endl;
+            }
+        }
+        if (Aleatorio2x1_1x2 == 1){
+            if (tablero[filaBarco1x2_1][columnaBarco1x2_1] == 2 && tablero[filaBarco1x2_1+1][columnaBarco1x2_1] == 2){
+                cout<<"El primer barco de 1x2 esta hundido"<<endl;
+            }
+        }
+
+        if (Aleatorio1x2_2x1 == 0){
+            if (tablero[filaBarco2x1_2][columnaBarco2x1_2] == 2 && tablero[filaBarco2x1_2][columnaBarco2x1_2+1] == 2){
+                cout<<"El segundo barco de 2x1 esta hundido"<<endl;
+            }
+        }
+        if (Aleatorio1x2_2x1 == 1){
+            if (tablero[filaBarco1x2_2][columnaBarco1x2_2] == 2 && tablero[filaBarco1x2_2+1][columnaBarco1x2_2] == 2){
+                cout<<"El segundo barco de 1x2 esta hundido"<<endl;
+            }
+        }
+;
     }
 
     return 0;
