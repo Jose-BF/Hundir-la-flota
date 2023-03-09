@@ -1,4 +1,3 @@
-
 //Codigo hecho por Jose Blanco Fleury ©
 
 #include<iostream>
@@ -7,7 +6,7 @@
 using namespace std;
 
 //Funcion para mostrar el tablero
-void mostrarTablero(int tablero[6][6]){
+void mostrarTablero(char tablero[6][6]){
     for(int i=0;i<6;i++){
         for(int j=0;j<6;j++){
             cout<<tablero[i][j]<<" ";
@@ -17,32 +16,32 @@ void mostrarTablero(int tablero[6][6]){
 }
 
 //Funcion Para Crear Barcos 3x1
-void crearBarco31(int tablero[6][6], int fila, int columna){
-    tablero[fila][columna]=1;
-    tablero[fila][columna+1]=1;
-    tablero[fila][columna+2]=1;
+void crearBarco31(char tablero[6][6], int fila, int columna){
+    tablero[fila][columna]='^';
+    tablero[fila][columna+1]='^';
+    tablero[fila][columna+2]='^';
 }
 
 //Funcion Para Crear Barcos 1x3
-void crearBarco13(int tablero[6][6], int fila, int columna){
-    tablero[fila][columna]=1;
-    tablero[fila+1][columna]=1;
-    tablero[fila+2][columna]=1;
+void crearBarco13(char tablero[6][6], int fila, int columna){
+    tablero[fila][columna]='^';
+    tablero[fila+1][columna]='^';
+    tablero[fila+2][columna]='^';
 }
 
 //Funcion Para Crear Barcos 2x1
-void crearBarco21(int tablero[6][6], int fila, int columna){
-    tablero[fila][columna]=1;
-    tablero[fila][columna+1]=1;
+void crearBarco21(char tablero[6][6], int fila, int columna){
+    tablero[fila][columna]='^';
+    tablero[fila][columna+1]='^';
 }
 
 //Funcion Para crear barcos 1x2
-void crearBarco12(int tablero[6][6], int fila, int columna){
-    tablero[fila][columna]=1;
-    tablero[fila+1][columna]=1;
+void crearBarco12(char tablero[6][6], int fila, int columna){
+    tablero[fila][columna]='^';
+    tablero[fila+1][columna]='^';
 }
 
-bool disparo(int tablero[6][6]){
+bool disparo(char tablero[6][6]){
     bool quedanBarcos = false;
     
     int fila, columna;
@@ -51,27 +50,27 @@ bool disparo(int tablero[6][6]){
     cout << "Introduce la columna: ";
     cin >> columna;
 
-    if(tablero[fila][columna]==1){
-        tablero[fila][columna]=2;
+    if(tablero[fila][columna]=='^'){
+        tablero[fila][columna]='#';
         cout << "\t\tTocado" << endl;
        
     }
-    else if(tablero[fila][columna]==2){
+    else if(tablero[fila][columna]=='#'){
         cout << "\t\tYa habias Acertado" << endl;
     }
-    if (tablero[fila][columna]==0){
+    if (tablero[fila][columna]=='~'){
         cout<<"\t\tAgua"<<endl;
-        tablero[fila][columna]=8;
+        tablero[fila][columna]='+';
     }
      
     //comprobamos si despues del disparo quedan barcos
     int contadortocado=0;
     for(int i=0;i<6;i++){
         for(int j=0;j<6;j++){
-            if(tablero[i][j]==1){
+            if(tablero[i][j]=='^'){
                 quedanBarcos = true;
             }
-            if (tablero[i][j]==2){
+            if (tablero[i][j]=='#'){
                 contadortocado++;
                 
             }
@@ -94,8 +93,8 @@ int main(){
     srand(time(NULL));
 
     //Creamos el tablero de 6x6
-    int tablero[6][6];
-    int disparos[6][6];
+    char tablero[6][6];
+    char disparos[6][6];
     
     //Creamos una variable aleatoria
     int Aleatorio3x1_1x3;
@@ -149,7 +148,7 @@ int main(){
     //inicializamos el tablero disparos a 0
     for(int i=0;i<6;i++){
         for(int j=0;j<6;j++){
-            disparos[i][j]= 0;
+            disparos[i][j]= '~';
         }
     }
     
@@ -157,7 +156,7 @@ int main(){
         //Inicializamos el tablero a 0
         for(int i=0;i<6;i++){
             for(int j=0;j<6;j++){
-             tablero[i][j]= 0;
+             tablero[i][j]= '~';
             }
         }
 
@@ -200,7 +199,7 @@ int main(){
         int contador = 0;
         for(int i=0;i<6;i++){
             for(int j=0;j<6;j++){
-                if(tablero[i][j]==1){
+                if(tablero[i][j]=='^'){
                     contador++;
                 }
             }
@@ -258,40 +257,41 @@ int main(){
 
     //Comprobamos los barcos hundidos
     if (Aleatorio3x1_1x3 == 0){
-            if (tablero[filaBarco3x1][columnaBarco3x1] == 2 && tablero[filaBarco3x1][columnaBarco3x1+1] == 2 && tablero[filaBarco3x1][columnaBarco3x1+2] == 2){
+            if (tablero[filaBarco3x1][columnaBarco3x1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+1] == '#' && tablero[filaBarco3x1][columnaBarco3x1+2] == '#'){
                 cout<<"El barco de 3x1 esta hundido"<<endl;
             }
         }
         if (Aleatorio3x1_1x3 == 1){
-            if (tablero[filaBarco1x3][columnaBarco1x3] == 2 && tablero[filaBarco1x3+1][columnaBarco1x3] == 2 && tablero[filaBarco1x3+2][columnaBarco1x3] == 2){
+            if (tablero[filaBarco1x3][columnaBarco1x3] == '#' && tablero[filaBarco1x3+1][columnaBarco1x3] == '#' && tablero[filaBarco1x3+2][columnaBarco1x3] == '#'){
                 cout<<"El barco de 1x3 esta hundido"<<endl;
             }
         }
 
         if (Aleatorio2x1_1x2 == 0){
-            if (tablero[filaBarco2x1_1][columnaBarco2x1_1] == 2 && tablero[filaBarco2x1_1][columnaBarco2x1_1+1] == 2){
+            if (tablero[filaBarco2x1_1][columnaBarco2x1_1] == '#' && tablero[filaBarco2x1_1][columnaBarco2x1_1+1] == '#'){
                 cout<<"El primer barco de 2x1 esta hundido"<<endl;
             }
         }
         if (Aleatorio2x1_1x2 == 1){
-            if (tablero[filaBarco1x2_1][columnaBarco1x2_1] == 2 && tablero[filaBarco1x2_1+1][columnaBarco1x2_1] == 2){
+            if (tablero[filaBarco1x2_1][columnaBarco1x2_1] == '#' && tablero[filaBarco1x2_1+1][columnaBarco1x2_1] == '#'){
                 cout<<"El primer barco de 1x2 esta hundido"<<endl;
             }
         }
 
         if (Aleatorio1x2_2x1 == 0){
-            if (tablero[filaBarco2x1_2][columnaBarco2x1_2] == 2 && tablero[filaBarco2x1_2][columnaBarco2x1_2+1] == 2){
+            if (tablero[filaBarco2x1_2][columnaBarco2x1_2] == '#' && tablero[filaBarco2x1_2][columnaBarco2x1_2+1] == '#'){
                 cout<<"El segundo barco de 2x1 esta hundido"<<endl;
             }
         }
         if (Aleatorio1x2_2x1 == 1){
-            if (tablero[filaBarco1x2_2][columnaBarco1x2_2] == 2 && tablero[filaBarco1x2_2+1][columnaBarco1x2_2] == 2){
+            if (tablero[filaBarco1x2_2][columnaBarco1x2_2] == '#' && tablero[filaBarco1x2_2+1][columnaBarco1x2_2] == '#'){
                 cout<<"El segundo barco de 1x2 esta hundido"<<endl;
             }
         }
-;
+
     }
 
     return 0;
 
 }
+
