@@ -3,6 +3,10 @@
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
+#include<fstream>
+#include<string>
+#include<vector>
+
 using namespace std;
 
 //Funcion para mostrar el tablero
@@ -113,6 +117,63 @@ bool disparo(char tablero[6][6]){
 }
 
 
+// Estructura de Usuario
+struct Usuario {
+    string nombre;
+    string contrasena;
+};
+
+void registrar_usuario() {
+    string nombre, contrasena;
+
+    cout << "Introduzca un nombre de usuario: ";
+    cin >> nombre;
+    cout << "Introduzca una contrasena: ";
+    cin >> contrasena;
+
+    ofstream archivo("usuarios.txt", ios::app); // Abrir archivo en modo de añadir
+
+    // Escribir el nuevo usuario en el archivo
+    archivo << nombre << " " << contrasena << endl;
+
+    archivo.close();
+
+    cout<<"Usuario registrado con exito";
+}
+
+// Función para comprobar si un usuario y contraseña existen en el archivo de texto
+bool comprobar_usuario(string nombre, string contrasena) {
+    ifstream archivo("usuarios.txt");
+
+    string usuario, password;
+    while (archivo >> usuario >> password) {
+        if (usuario == nombre && password == contrasena) {
+            archivo.close();
+            return true; // Usuario y contraseña coinciden
+        }
+    }
+
+    archivo.close();
+    return false; // Usuario y/o contraseña no coinciden
+}
+
+// Función para iniciar sesión
+void iniciar_sesion() {
+    string nombre, contrasena;
+
+    cout << "Introduzca su nombre de usuario: ";
+    cin >> nombre;
+    cout << "Introduzca su contrasena: ";
+    cin >> contrasena;
+
+    if (comprobar_usuario(nombre, contrasena)) {
+        cout << "Inicio de sesion exitoso!\n" << endl;
+    } else {
+        cout << "\nNombre de usuario y/o contrasena incorrectos.\n" << endl;
+    }
+}
+
+
 int main(){
 cout<<endl;
 cout<<"                                    ____       __      ___           __         _  _         _____    __         ______   ________  _____"<<endl;
@@ -138,22 +199,37 @@ cout<<" //    / / ((___/ / //   |/ / //____/ / __/ /___ //    | |      / /____/ 
     cout<<"-En caso de introducir una instroduccion incorrecta, el juego finalizara"<<endl;
     cout<<"------------------------------------------------------------------------ \n"<<endl;
 
-    char siono;
-    while (true) {
-    cout << "Quieres empezar el juego? (s/n):\n\n ";
-    cout<<">> ";
-    cin >> siono;
-    if (siono == 'n' || siono == 'N') {
-    cout << "Hasta la próxima" << endl;
-    return 0;
-    } else if (siono == 's' || siono == 'S') {
-    cout << "\nComenzando..." << endl;
-    break;
-    } else {
-    cout << "Respuesta incorrecta" << endl;
-    }
-    }
-    cout<<endl<<endl;
+    // Pedir información de usuario
+    int opcion;
+    
+    do {
+        
+        cout << "Seleccione una opcion:" << endl;
+        cout << "1. Registrar un nuevo usuario" << endl;
+        cout << "2. Iniciar sesion" << endl;
+        cout << "0. Salir" << endl;
+        cout<<">>";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                registrar_usuario();
+                break;
+            case 2:
+                iniciar_sesion();
+                //Si se inicia sesion correctamente, empieza el juego
+                
+                
+
+                break;
+            case 0:
+                cout << "Hasta luego!" << endl;
+                return 0;
+            default:
+                cout << "Opcion no valida. Intente de nuevo." << endl;
+                break;
+        }
+    } while (opcion != 0);
 
 
 
