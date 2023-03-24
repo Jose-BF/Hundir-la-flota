@@ -138,7 +138,7 @@ void registrar_usuario() {
 
     archivo.close();
 
-    cout<<"Usuario registrado con exito";
+    cout<<"Usuario registrado con exito\n";
 }
 
 // Función para comprobar si un usuario y contraseña existen en el archivo de texto
@@ -158,7 +158,7 @@ bool comprobar_usuario(string nombre, string contrasena) {
 }
 
 // Función para iniciar sesión
-void iniciar_sesion() {
+bool iniciar_sesion() {
     string nombre, contrasena;
 
     cout << "Introduzca su nombre de usuario: ";
@@ -168,8 +168,10 @@ void iniciar_sesion() {
 
     if (comprobar_usuario(nombre, contrasena)) {
         cout << "Inicio de sesion exitoso!\n" << endl;
+        return true;
     } else {
         cout << "\nNombre de usuario y/o contrasena incorrectos.\n" << endl;
+        return false;
     }
 }
 
@@ -201,35 +203,37 @@ cout<<" //    / / ((___/ / //   |/ / //____/ / __/ /___ //    | |      / /____/ 
 
     // Pedir información de usuario
     int opcion;
-    
-    do {
-        
-        cout << "Seleccione una opcion:" << endl;
-        cout << "1. Registrar un nuevo usuario" << endl;
-        cout << "2. Iniciar sesion" << endl;
-        cout << "0. Salir" << endl;
-        cout<<">>";
-        cin >> opcion;
+    bool inicio_sesion_correcto = false;
+do {
+    cout << "Seleccione una opcion:" << endl;
+    cout << "1. Registrar un nuevo usuario" << endl;
+    cout << "2. Iniciar sesion" << endl;
+    cout << "0. Salir" << endl;
+    cout<<">>";
+    cin >> opcion;
 
-        switch (opcion) {
-            case 1:
-                registrar_usuario();
-                break;
-            case 2:
-                iniciar_sesion();
-                //Si se inicia sesion correctamente, empieza el juego
-                
-                
+    switch (opcion) {
+        case 1:
+            registrar_usuario();
+            break;
+        case 2:
+            inicio_sesion_correcto = iniciar_sesion();
+            if (inicio_sesion_correcto) {
+                cout << "Inicio de sesion correcto. Empezando el juego..." << endl;
+                // Aquí puedes poner el código del juego
+            } else {
+                cout << "Inicio de sesion incorrecto. Intente de nuevo." << endl;
+            }
+            break;
+        case 0:
+            cout << "Hasta luego!" << endl;
+            return 0;
+        default:
+            cout << "Opcion no valida. Intente de nuevo." << endl;
+            break;
+    }
+} while (opcion != 0 && !inicio_sesion_correcto);
 
-                break;
-            case 0:
-                cout << "Hasta luego!" << endl;
-                return 0;
-            default:
-                cout << "Opcion no valida. Intente de nuevo." << endl;
-                break;
-        }
-    } while (opcion != 0);
 
 
 
@@ -404,4 +408,3 @@ cout<<" //    / / ((___/ / //   |/ / //____/ / __/ /___ //    | |      / /____/ 
     return 0;
 
 }
-
